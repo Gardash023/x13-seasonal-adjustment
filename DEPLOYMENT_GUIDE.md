@@ -20,7 +20,7 @@
 
 ```bash
 # Navigate to your project directory
-cd "/Users/gardashabbasov/Desktop/Grdshbbsv/Python Libraries/x13"
+cd "/Users/gardashabbasov/Desktop/Grdshbbsv/Python Libraries/bakx13"
 
 # Initialize git repository
 git init
