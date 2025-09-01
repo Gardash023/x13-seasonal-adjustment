@@ -4,7 +4,7 @@ X13 Seasonal Adjustment Library
 Professional implementation of the X13-ARIMA-SEATS seasonal adjustment algorithm
 for detecting and removing seasonal effects from time series data.
 
-This library provides a comprehensive, production-ready Python implementation 
+This library provides a comprehensive, production-ready Python implementation
 following the methodology of the US Census Bureau's X13-ARIMA-SEATS program,
 with robust error handling, professional logging, and extensive quality diagnostics.
 
@@ -19,18 +19,18 @@ Key Features:
 Basic Usage:
     >>> import pandas as pd
     >>> from x13_seasonal_adjustment import X13SeasonalAdjustment
-    >>> 
+    >>>
     >>> # Load your time series data
     >>> data = pd.Series([100, 110, 95, 105, 120, 108, 90, 98, 125, 115, 88, 102])
-    >>> 
+    >>>
     >>> # Apply seasonal adjustment with default settings
     >>> x13 = X13SeasonalAdjustment()
     >>> result = x13.fit_transform(data)
-    >>> 
+    >>>
     >>> # Access results
     >>> print(f"Seasonally adjusted series: {result.seasonally_adjusted}")
     >>> print(f"Seasonality strength: {result.seasonality_strength:.3f}")
-    >>> 
+    >>>
     >>> # Visualize results
     >>> result.plot()
 
@@ -44,42 +44,43 @@ Advanced Usage:
     ...     log_level='DEBUG'
     ... )
     >>> result = x13.fit_transform(monthly_data)
-    >>> 
+    >>>
     >>> # Access comprehensive diagnostics
     >>> print(f"Quality measures: {result.quality_measures}")
     >>> print(f"ARIMA model: {result.arima_model_info}")
 """
 
-# Core functionality
-from .core.x13 import X13SeasonalAdjustment
+from .arima.auto_arima import AutoARIMA
 from .core.result import SeasonalAdjustmentResult
 
-# Specialized components
-from .tests.seasonality_tests import SeasonalityTests
-from .arima.auto_arima import AutoARIMA
+# Core functionality
+from .core.x13 import X13SeasonalAdjustment
 from .diagnostics.quality import QualityDiagnostics
 
 # Exception classes for error handling
 from .exceptions import (
-    X13SeasonalAdjustmentError,
-    DataValidationError,
-    TimeSeriesError,
-    FrequencyError,
-    SeasonalityError,
     ARIMAModelError,
-    DecompositionError,
-    TransformationError,
-    OutlierDetectionError,
-    ForecastError,
-    QualityAssessmentError,
     ConfigurationError,
+    ConvergenceError,
+    DataValidationError,
+    DecompositionError,
+    ForecastError,
+    FrequencyError,
     InsufficientDataError,
     ModelNotFittedError,
-    ConvergenceError
+    OutlierDetectionError,
+    QualityAssessmentError,
+    SeasonalityError,
+    TimeSeriesError,
+    TransformationError,
+    X13SeasonalAdjustmentError,
 )
 
 # Logging configuration
-from .logging_config import X13Logger, LoggingContextManager
+from .logging_config import LoggingContextManager, X13Logger
+
+# Specialized components
+from .tests.seasonality_tests import SeasonalityTests
 
 # Version and metadata
 __version__ = "0.1.3"
@@ -94,12 +95,10 @@ __all__ = [
     # Core classes
     "X13SeasonalAdjustment",
     "SeasonalAdjustmentResult",
-    
     # Specialized components
     "SeasonalityTests",
-    "AutoARIMA", 
+    "AutoARIMA",
     "QualityDiagnostics",
-    
     # Exception classes
     "X13SeasonalAdjustmentError",
     "DataValidationError",
@@ -113,14 +112,12 @@ __all__ = [
     "ForecastError",
     "QualityAssessmentError",
     "ConfigurationError",
-    "InsufficientDataError", 
+    "InsufficientDataError",
     "ModelNotFittedError",
     "ConvergenceError",
-    
     # Logging
     "X13Logger",
     "LoggingContextManager",
-    
     # Metadata
     "__version__",
     "__author__",
