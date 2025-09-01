@@ -302,7 +302,7 @@ class SeasonalAdjustmentResult:
         Args:
             filepath (str): Kayıt dosyası yolu
         """
-                    import pickle  # nosec B403
+        import pickle  # nosec B403
 
         with open(filepath, "wb") as f:
             pickle.dump(self, f)
@@ -318,7 +318,7 @@ class SeasonalAdjustmentResult:
         Returns:
             SeasonalAdjustmentResult: Yüklenmiş sonuç nesnesi
         """
-                    import pickle  # nosec B403
+        import pickle  # nosec B403
 
         with open(filepath, "rb") as f:
-                            return pickle.load(f)  # nosec B301
+            return pickle.load(f)  # nosec B301
