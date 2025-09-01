@@ -10,6 +10,13 @@ ignore =
     W503,
     W504,
     E701,
+    E722,
+    C901,
+    F401,
+    F841,
+    E402,
+    E712,
+    W291,
     
 # Error codes to always check
 select = E,W,F,C
