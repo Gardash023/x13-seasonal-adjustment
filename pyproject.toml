@@ -1,0 +1,235 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "x13-seasonal-adjustment"
+version = "0.1.3"
+description = "Comprehensive X13-ARIMA-SEATS seasonal adjustment library for Python"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Gardash Abbasov", email = "gardash.abbasov@gmail.com"}
+]
+maintainers = [
+    {name = "Gardash Abbasov", email = "gardash.abbasov@gmail.com"}
+]
+keywords = ["time-series", "seasonal-adjustment", "x13", "arima", "econometrics", "statistics"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Office/Business :: Financial",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20.0",
+    "pandas>=1.3.0",
+    "scipy>=1.7.0",
+    "statsmodels>=0.13.0",
+    "matplotlib>=3.3.0",
+    "scikit-learn>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    # Testing
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-benchmark>=4.0",
+    "pytest-mock>=3.10",
+    "pytest-xdist>=3.0",
+    
+    # Code Quality
+    "black>=23.0",
+    "flake8>=6.0",
+    "flake8-docstrings>=1.7",
+    "flake8-bugbear>=23.0",
+    "flake8-typing-imports>=1.12",
+    "isort>=5.12",
+    "mypy>=1.5",
+    
+    # Security
+    "bandit>=1.7",
+    "safety>=2.3",
+    
+    # Development Tools
+    "pre-commit>=3.0",
+    "tox>=4.0",
+    "build>=0.10",
+    "twine>=4.0",
+    
+    # Documentation
+    "sphinx>=6.0",
+    "sphinx-rtd-theme>=1.3",
+    "sphinx-autodoc-typehints>=1.20",
+    
+    # Jupyter support
+    "jupyter>=1.0",
+    "ipython>=8.0",
+    "notebook>=6.5",
+]
+
+docs = [
+    "sphinx>=6.0",
+    "sphinx-rtd-theme>=1.3",
+    "sphinx-autodoc-typehints>=1.20",
+    "nbsphinx>=0.8",
+    "jupyter>=1.0",
+    "ipython>=8.0",
+    "myst-parser>=1.0",
+    "sphinx-copybutton>=0.5",
+]
+
+benchmark = [
+    "pytest-benchmark>=4.0",
+    "memory-profiler>=0.60",
+    "psutil>=5.9",
+]
+
+all = [
+    "x13-seasonal-adjustment[dev,docs,benchmark]",
+]
+
+[project.urls]
+Homepage = "https://github.com/Gardash023/x13-seasonal-adjustment"
+Documentation = "https://x13-seasonal-adjustment.readthedocs.io"
+Repository = "https://github.com/Gardash023/x13-seasonal-adjustment"
+"Bug Tracker" = "https://github.com/Gardash023/x13-seasonal-adjustment/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 88
+known_first_party = ["x13_seasonal_adjustment"]
+known_third_party = ["numpy", "pandas", "scipy", "statsmodels", "sklearn", "matplotlib"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+strict_concatenate = true
+
+# Specific module configurations
+[[tool.mypy.overrides]]
+module = [
+    "matplotlib.*",
+    "scipy.*",
+    "sklearn.*",
+    "statsmodels.*"
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=src/x13_seasonal_adjustment",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "--cov-fail-under=85",
+    "--strict-markers",
+    "--strict-config",
+    "--disable-warnings"
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "performance: marks tests as performance benchmarks"
+]
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+    "ignore::FutureWarning"
+]
+
+[tool.coverage.run]
+source = ["src/x13_seasonal_adjustment"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+    "*/setup.py",
+    "*/conftest.py"
+]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod"
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.bandit]
+exclude_dirs = ["tests", "build", "dist"]
+skips = ["B101", "B601"]
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "*/test_*.py"]
